@@ -3,7 +3,7 @@ var bodyParser=require('body-parser');
 
 var {mongoose}=require('./db/mongoose.js');
 var {Todo}=require('./models/todo.js');
-var {user}=require('./models/user.js');
+var {User}=require('./models/user.js');
 
 
 var app=express();
@@ -19,6 +19,15 @@ app.post('/todos',(req,res)=>{
     res.send(doc);
   },(e)=>{
     res.status(400).send(e);
+  });
+});
+
+app.post('/users',(req,res)=>{
+  var user= new User({
+    email:req.body.email
+  });
+  user.save().then((doc)=>{
+    res.send(doc);
   });
 });
 
